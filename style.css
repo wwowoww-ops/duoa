@@ -1,0 +1,1122 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            #3d2858 0%,
+            #21152e 42%,
+            #0b0710 100%
+        );
+    color: #fff;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(170, 110, 255, 0.08),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(120, 80, 220, 0.08),
+            transparent 30%
+        );
+    z-index: -1;
+}
+
+button {
+    font-family: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+main {
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* =========================
+   INTRO / ENDING
+========================= */
+
+.intro,
+.game,
+.ending {
+    min-height: 100vh;
+    padding: 30px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    width: min(92vw, 500px);
+    padding: 38px 25px;
+    text-align: center;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+.mini-title,
+.small-title {
+    color: #d2a7ff;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.card h1 {
+    font-size: clamp(34px, 8vw, 52px);
+    margin-bottom: 20px;
+}
+
+.card p {
+    color: #d8cedf;
+    line-height: 1.9;
+    margin: 7px 0;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+#startBtn,
+#replayBtn {
+    margin-top: 25px;
+    padding: 14px 38px;
+    border-radius: 16px;
+    background:
+        linear-gradient(
+            135deg,
+            #a96bea,
+            #7041ad
+        );
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    box-shadow:
+        0 10px 30px rgba(137, 82, 205, 0.35);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+#startBtn:hover,
+#replayBtn:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 15px 35px rgba(137, 82, 205, 0.5);
+}
+
+#startBtn:active,
+#replayBtn:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================
+   GAME
+========================= */
+
+.game {
+    flex-direction: column;
+    gap: 18px;
+    padding-top: 35px;
+    padding-bottom: 55px;
+}
+
+.game-header {
+    text-align: center;
+    animation: fadeDown 0.7s ease;
+}
+
+.game-header h2 {
+    font-size: clamp(30px, 7vw, 44px);
+    margin-bottom: 8px;
+}
+
+.game-header p {
+    color: #cfc3d8;
+    font-size: 15px;
+}
+
+
+/* =========================
+   LUDO BOARD
+========================= */
+
+.ludo-board {
+    width: min(88vw, 430px);
+    aspect-ratio: 1;
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    grid-template-rows:
+        1fr 1fr;
+
+    padding: 12px;
+    gap: 8px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #30203d,
+            #1b1126
+        );
+
+    border: 4px solid #9466bc;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45),
+        0 0 35px rgba(160, 100, 230, 0.18);
+
+    overflow: hidden;
+
+    animation: boardAppear 0.8s ease;
+}
+
+
+/* =========================
+   LUDO HOMES
+========================= */
+
+.home {
+    position: relative;
+
+    border-radius: 18px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    grid-template-rows:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    padding: 25px;
+
+    place-items: center;
+
+    box-shadow:
+        inset 0 0 20px rgba(0, 0, 0, 0.12);
+}
+
+.red-home {
+    background:
+        linear-gradient(
+            145deg,
+            #c45172,
+            #913750
+        );
+}
+
+.green-home {
+    background:
+        linear-gradient(
+            145deg,
+            #5baa81,
+            #377256
+        );
+}
+
+.yellow-home {
+    background:
+        linear-gradient(
+            145deg,
+            #d2b650,
+            #9e832f
+        );
+}
+
+.blue-home {
+    background:
+        linear-gradient(
+            145deg,
+            #638bd1,
+            #405f9a
+        );
+}
+
+
+/* =========================
+   LUDO PIECES INSIDE BOARD
+========================= */
+
+.home-piece {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(255,255,255,0.7),
+            rgba(255,255,255,0.2) 35%,
+            rgba(255,255,255,0.08) 60%
+        );
+
+    border:
+        3px solid rgba(255,255,255,0.72);
+
+    box-shadow:
+        inset 0 3px 5px rgba(255,255,255,0.25),
+        0 4px 8px rgba(0,0,0,0.25);
+
+    transition:
+        transform 0.25s ease;
+}
+
+.home-piece:hover {
+    transform: scale(1.12);
+}
+
+
+/* =========================
+   CENTER
+========================= */
+
+.board-center {
+    position: absolute;
+
+    width: 31%;
+    aspect-ratio: 1;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(45deg);
+
+    background:
+        conic-gradient(
+            #c45172 0deg 90deg,
+            #d2b650 90deg 180deg,
+            #638bd1 180deg 270deg,
+            #5baa81 270deg 360deg
+        );
+
+    border:
+        5px solid #24172f;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 0 20px rgba(0,0,0,0.25);
+}
+
+.board-center span {
+    transform: rotate(-45deg);
+
+    font-size:
+        clamp(30px, 9vw, 55px);
+
+    color: white;
+
+    text-shadow:
+        0 4px 10px rgba(0,0,0,0.35);
+}
+
+
+/* =========================
+   DICE AREA
+========================= */
+
+.dice-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.dice-label {
+    color: #d2a7ff;
+    font-size: 14px;
+}
+
+.dice {
+    position: relative;
+
+    width: 82px;
+    height: 82px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #e4dce9
+        );
+
+    box-shadow:
+        0 12px 25px rgba(0,0,0,0.35),
+        inset 0 2px 4px rgba(255,255,255,0.9);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+.dice:hover {
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.4),
+        0 0 20px rgba(190,140,255,0.25);
+}
+
+.dice:active {
+    transform: scale(0.9);
+}
+
+.dice.rolling {
+    animation:
+        diceRoll 0.65s ease;
+}
+
+
+/* =========================
+   DICE DOTS
+========================= */
+
+.dot {
+    position: absolute;
+
+    width: 13px;
+    height: 13px;
+
+    border-radius: 50%;
+
+    background: #28172f;
+
+    display: none;
+
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,0.2);
+}
+
+.dot-1 {
+    top: 15px;
+    left: 15px;
+}
+
+.dot-2 {
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dot-3 {
+    top: 15px;
+    right: 15px;
+}
+
+.dot-4 {
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+}
+
+.dot-5 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.dot-6 {
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+}
+
+.dot-7 {
+    bottom: 15px;
+    left: 15px;
+}
+
+.dot-8 {
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dot-9 {
+    bottom: 15px;
+    right: 15px;
+}
+
+#rollCount {
+    color: #aaa0b2;
+    font-size: 13px;
+}
+
+
+/* =========================
+   DICE ANIMATION
+========================= */
+
+@keyframes diceRoll {
+
+    0% {
+        transform:
+            rotate(0deg)
+            scale(1);
+    }
+
+    20% {
+        transform:
+            rotate(20deg)
+            scale(1.1);
+    }
+
+    40% {
+        transform:
+            rotate(-25deg)
+            scale(0.9);
+    }
+
+    60% {
+        transform:
+            rotate(18deg)
+            scale(1.08);
+    }
+
+    80% {
+        transform:
+            rotate(-10deg)
+            scale(0.96);
+    }
+
+    100% {
+        transform:
+            rotate(0deg)
+            scale(1);
+    }
+}
+
+
+/* =========================
+   MESSAGE BOX
+========================= */
+
+.message-box {
+    width: min(88vw, 430px);
+
+    min-height: 125px;
+
+    padding: 23px 20px;
+
+    text-align: center;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.085),
+            rgba(255,255,255,0.035)
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.1);
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,0.18);
+
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.message-box.changing {
+    opacity: 0;
+
+    transform:
+        translateY(8px)
+        scale(0.98);
+}
+
+#messageTitle {
+    color: #d1a5ff;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+#message {
+    color: #ddd4e3;
+
+    line-height: 1.8;
+
+    font-size: 15px;
+}
+
+
+/* =========================
+   SMALL LUDO PIECES
+========================= */
+
+.pieces-area {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-top: 5px;
+}
+
+.piece {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    color: transparent;
+
+    font-size: 0;
+
+    border:
+        4px solid rgba(255,255,255,0.7);
+
+    box-shadow:
+        inset 0 4px 6px rgba(255,255,255,0.2),
+        0 6px 15px rgba(0,0,0,0.3);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.piece:hover {
+    transform:
+        translateY(-5px)
+        scale(1.08);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,0.35);
+}
+
+.piece:active {
+    transform: scale(0.92);
+}
+
+.red-piece {
+    background: #b84668;
+}
+
+.green-piece {
+    background: #4d9b72;
+}
+
+.yellow-piece {
+    background: #c6a94a;
+}
+
+.blue-piece {
+    background: #547bc0;
+}
+
+
+/* =========================
+   ENDING
+========================= */
+
+.ending {
+    position: relative;
+
+    overflow: hidden;
+}
+
+.ending-card {
+    position: relative;
+    z-index: 2;
+
+    animation:
+        endingAppear 0.8s ease;
+}
+
+.final-star {
+    font-size: 50px;
+
+    color: #d3a4ff;
+
+    margin-bottom: 10px;
+
+    animation:
+        starPulse 1.8s infinite ease-in-out;
+
+    text-shadow:
+        0 0 20px rgba(190,130,255,0.45);
+}
+
+.final-message {
+    margin-top: 18px !important;
+
+    color: #e7d8ef !important;
+}
+
+
+/* =========================
+   ENDING ANIMATIONS
+========================= */
+
+@keyframes endingAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.85)
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+@keyframes starPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+
+/* =========================
+   CHIBI CHARACTERS
+========================= */
+
+.chibi {
+    position: fixed;
+
+    z-index: 20;
+
+    width: 145px;
+    height: auto;
+
+    object-fit: contain;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transform: scale(0.7);
+
+    filter:
+        drop-shadow(
+            0 12px 20px
+            rgba(0,0,0,0.35)
+        );
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.6s ease;
+}
+
+.chibi-show {
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+
+/* =========================
+   CHIBI POSITIONS
+========================= */
+
+.chibi-dice {
+    right: 12px;
+    bottom: 100px;
+}
+
+.chibi-board {
+    left: 8px;
+    top: 90px;
+
+    width: 125px;
+}
+
+.chibi-electro {
+    right: 5px;
+    top: 120px;
+
+    width: 135px;
+
+    animation:
+        electroFloat 2.5s ease-in-out infinite;
+}
+
+.chibi-plush {
+    left: 5px;
+    bottom: 80px;
+
+    width: 135px;
+}
+
+
+/* =========================
+   BIRTHDAY CHIBI
+========================= */
+
+.chibi-birthday {
+    position: absolute;
+
+    left: 50%;
+    bottom: -35px;
+
+    width:
+        min(80vw, 330px);
+
+    height: auto;
+
+    transform:
+        translateX(-50%)
+        scale(0.7);
+
+    z-index: 5;
+}
+
+.chibi-birthday.chibi-show {
+    transform:
+        translateX(-50%)
+        scale(1);
+}
+
+
+/* =========================
+   CHIBI ANIMATIONS
+========================= */
+
+.chibi-bounce {
+    animation:
+        chibiBounce 0.55s ease;
+}
+
+@keyframes chibiBounce {
+
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform:
+            scale(1.12)
+            rotate(-4deg);
+    }
+
+    70% {
+        transform:
+            scale(0.95)
+            rotate(4deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes electroFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-10px);
+    }
+}
+
+
+/* =========================
+   BOARD APPEAR
+========================= */
+
+@keyframes boardAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.88)
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .intro,
+    .game,
+    .ending {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .card {
+        padding: 32px 19px;
+    }
+
+    .ludo-board {
+        width: 92vw;
+
+        padding: 8px;
+
+        gap: 5px;
+
+        border-width: 3px;
+    }
+
+    .home {
+        padding: 17px;
+
+        gap: 8px;
+    }
+
+    .home-piece {
+        width: 23px;
+        height: 23px;
+
+        border-width: 2px;
+    }
+
+    .dice {
+        width: 76px;
+        height: 76px;
+    }
+
+    .message-box {
+        width: 92vw;
+    }
+
+    .pieces-area {
+        gap: 13px;
+    }
+
+    .piece {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Chibi mobile */
+
+    .chibi {
+        width: 105px;
+    }
+
+    .chibi-dice {
+        right: -12px;
+        bottom: 80px;
+    }
+
+    .chibi-board {
+        left: -15px;
+        top: 80px;
+
+        width: 95px;
+    }
+
+    .chibi-electro {
+        right: -15px;
+        top: 100px;
+
+        width: 100px;
+    }
+
+    .chibi-plush {
+        left: -15px;
+        bottom: 60px;
+
+        width: 105px;
+    }
+
+    .chibi-birthday {
+        width:
+            min(78vw, 280px);
+
+        bottom: -20px;
+    }
+}
+
+
+/* =========================
+   VERY SMALL PHONES
+========================= */
+
+@media (max-width: 360px) {
+
+    .card h1 {
+        font-size: 34px;
+    }
+
+    .game-header h2 {
+        font-size: 30px;
+    }
+
+    .ludo-board {
+        width: 94vw;
+    }
+
+    .home {
+        padding: 13px;
+    }
+
+    .home-piece {
+        width: 20px;
+        height: 20px;
+    }
+
+    .chibi-dice {
+        right: -25px;
+    }
+
+    .chibi-board {
+        left: -25px;
+    }
+
+    .chibi-electro {
+        right: -25px;
+    }
+
+    .chibi-plush {
+        left: -25px;
+    }
+}
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 700px) {
+
+    .game {
+        gap: 22px;
+    }
+
+    .ludo-board {
+        width: 440px;
+    }
+
+    .dice {
+        width: 90px;
+        height: 90px;
+    }
+
+    .chibi-dice {
+        right: 40px;
+        bottom: 80px;
+
+        width: 175px;
+    }
+
+    .chibi-board {
+        left: 35px;
+        top: 110px;
+
+        width: 155px;
+    }
+
+    .chibi-electro {
+        right: 35px;
+        top: 120px;
+
+        width: 160px;
+    }
+
+    .chibi-plush {
+        left: 35px;
+        bottom: 70px;
+
+        width: 160px;
+    }
+  }
