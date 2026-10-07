@@ -16,13 +16,33 @@ let audioContext = null;
 
 
 /* =========================
+   GITHUB IMAGE LINKS
+========================= */
+
+const ASSETS = {
+    intro: "https://raw.githubusercontent.com/wwowoww-ops/duoa/main/ludo_chibi_assets/intro.png",
+
+    dice: "https://raw.githubusercontent.com/wwowoww-ops/duoa/main/ludo_chibi_assets/dice.png",
+
+    board: "https://raw.githubusercontent.com/wwowoww-ops/duoa/main/ludo_chibi_assets/board.png",
+
+    electro: "https://raw.githubusercontent.com/wwowoww-ops/duoa/main/ludo_chibi_assets/electro.png",
+
+    plush: "https://raw.githubusercontent.com/wwowoww-ops/duoa/main/ludo_chibi_assets/plush.png",
+
+    birthday: "https://raw.githubusercontent.com/wwowoww-ops/duoa/main/ludo_chibi_assets/birthday.png"
+};
+
+
+/* =========================
    CHIBI
 ========================= */
 
 function createChibi(src, className, alt) {
+
     const img = document.createElement("img");
 
-    img.src = "ludo_chibi_assets/" + src;
+    img.src = ASSETS[src];
     img.alt = alt || "";
     img.className = "chibi " + className;
 
@@ -35,10 +55,16 @@ function createChibi(src, className, alt) {
     return img;
 }
 
+
 function removeChibis() {
-    document.querySelectorAll(".chibi").forEach(function (chibi) {
-        chibi.remove();
-    });
+
+    document
+        .querySelectorAll(".chibi")
+        .forEach(function (chibi) {
+
+            chibi.remove();
+
+        });
 }
 
 
@@ -47,6 +73,7 @@ function removeChibis() {
 ========================= */
 
 function initAudio() {
+
     if (audioContext) return;
 
     const AudioContext =
@@ -58,11 +85,13 @@ function initAudio() {
     audioContext = new AudioContext();
 }
 
+
 function playTone(
     frequency,
     duration = 0.18,
     volume = 0.08
 ) {
+
     if (!audioContext) return;
 
     const oscillator =
@@ -75,7 +104,9 @@ function playTone(
         audioContext.currentTime;
 
     oscillator.type = "sine";
-    oscillator.frequency.value = frequency;
+
+    oscillator.frequency.value =
+        frequency;
 
     gain.gain.setValueAtTime(
         0.0001,
@@ -93,25 +124,51 @@ function playTone(
     );
 
     oscillator.connect(gain);
-    gain.connect(audioContext.destination);
+
+    gain.connect(
+        audioContext.destination
+    );
 
     oscillator.start(now);
-    oscillator.stop(now + duration);
+
+    oscillator.stop(
+        now + duration
+    );
 }
 
+
 function diceSound() {
-    playTone(430, 0.1, 0.06);
+
+    playTone(
+        430,
+        0.1,
+        0.06
+    );
 
     setTimeout(function () {
-        playTone(620, 0.12, 0.07);
+
+        playTone(
+            620,
+            0.12,
+            0.07
+        );
+
     }, 70);
 
     setTimeout(function () {
-        playTone(820, 0.18, 0.08);
+
+        playTone(
+            820,
+            0.18,
+            0.08
+        );
+
     }, 140);
 }
 
+
 function finalSound() {
+
     const notes = [
         523,
         659,
@@ -119,11 +176,24 @@ function finalSound() {
         988
     ];
 
-    notes.forEach(function (note, index) {
-        setTimeout(function () {
-            playTone(note, 0.5, 0.09);
-        }, index * 150);
-    });
+    notes.forEach(
+        function (note, index) {
+
+            setTimeout(
+                function () {
+
+                    playTone(
+                        note,
+                        0.5,
+                        0.09
+                    );
+
+                },
+                index * 150
+            );
+
+        }
+    );
 }
 
 
@@ -131,36 +201,56 @@ function finalSound() {
    INTRO
 ========================= */
 
-startBtn.addEventListener("click", function () {
+startBtn.addEventListener(
+    "click",
+    function () {
 
-    initAudio();
+        initAudio();
 
-    if (
-        audioContext &&
-        audioContext.state === "suspended"
-    ) {
-        audioContext.resume();
-    }
+        if (
+            audioContext &&
+            audioContext.state === "suspended"
+        ) {
 
-    playTone(523, 0.3, 0.08);
+            audioContext.resume();
 
-    intro.classList.add("hidden");
-    game.classList.remove("hidden");
+        }
 
-    createChibi(
-        "dice.png",
-        "chibi-dice",
-        "رايدن شوغن مع النرد"
-    );
-
-    setTimeout(function () {
-        createChibi(
-            "board.png",
-            "chibi-board",
-            "رايدن شوغن فوق رقعة اللودو"
+        playTone(
+            523,
+            0.3,
+            0.08
         );
-    }, 500);
-});
+
+        intro.classList.add(
+            "hidden"
+        );
+
+        game.classList.remove(
+            "hidden"
+        );
+
+        createChibi(
+            "dice",
+            "chibi-dice",
+            "رايدن شوغن مع النرد"
+        );
+
+        setTimeout(
+            function () {
+
+                createChibi(
+                    "board",
+                    "chibi-board",
+                    "رايدن شوغن فوق رقعة اللودو"
+                );
+
+            },
+            500
+        );
+
+    }
+);
 
 
 /* =========================
@@ -168,6 +258,7 @@ startBtn.addEventListener("click", function () {
 ========================= */
 
 const diceFaces = {
+
     1: [5],
 
     2: [1, 9],
@@ -179,33 +270,46 @@ const diceFaces = {
     5: [1, 3, 5, 7, 9],
 
     6: [1, 3, 4, 6, 7, 9]
+
 };
+
 
 function showDice(number) {
 
     document
         .querySelectorAll(".dot")
         .forEach(function (dot) {
+
             dot.style.display = "none";
+
         });
 
-    diceFaces[number].forEach(function (position) {
+    diceFaces[number].forEach(
+        function (position) {
 
-        const dot =
-            document.querySelector(
-                ".dot-" + position
-            );
+            const dot =
+                document.querySelector(
+                    ".dot-" + position
+                );
 
-        if (dot) {
-            dot.style.display = "block";
+            if (dot) {
+
+                dot.style.display =
+                    "block";
+
+            }
+
         }
-    });
+    );
 }
 
+
 function randomDice() {
+
     return Math.floor(
         Math.random() * 6
     ) + 1;
+
 }
 
 
@@ -214,36 +318,51 @@ function randomDice() {
 ========================= */
 
 const rollMessages = [
+
     {
         title: "رمية البداية",
-        text: "أول ضغطة بدأت اللعبة… نشوف وين يوصلنا النرد."
+
+        text:
+            "أول ضغطة بدأت اللعبة… نشوف وين يوصلنا النرد."
     },
 
     {
         title: "خطوة جديدة",
-        text: "كل رمية تعني خطوة جديدة… والمهم نستمتع بالطريق."
+
+        text:
+            "كل رمية تعني خطوة جديدة… والمهم نستمتع بالطريق."
     },
 
     {
         title: "النرد اليوم عنده كلام",
-        text: "واضح أن النرد قرر يشارك في الهدية."
+
+        text:
+            "واضح أن النرد قرر يشارك في الهدية."
     },
 
     {
         title: "قربنا",
-        text: "بدأت الرحلة تقرب من نهايتها… لكن المفاجأة مازالت."
+
+        text:
+            "بدأت الرحلة تقرب من نهايتها… لكن المفاجأة مازالت."
     },
 
     {
         title: "آخر خطوات",
-        text: "باقي القليل… لا توقفي الآن."
+
+        text:
+            "باقي القليل… لا توقفي الآن."
     },
 
     {
         title: "وصلنا",
-        text: "آخر رمية… وبعدها عندنا شيء خاص لدعدوعة."
+
+        text:
+            "آخر رمية… وبعدها عندنا شيء خاص لدعدوعة."
     }
+
 ];
+
 
 function showRollMessage(number) {
 
@@ -256,21 +375,28 @@ function showRollMessage(number) {
     const data =
         rollMessages[index];
 
-    messageBox.classList.add("changing");
+    messageBox.classList.add(
+        "changing"
+    );
 
-    setTimeout(function () {
+    setTimeout(
+        function () {
 
-        messageTitle.textContent =
-            data.title + " — " + number;
+            messageTitle.textContent =
+                data.title +
+                " — " +
+                number;
 
-        message.textContent =
-            data.text;
+            message.textContent =
+                data.text;
 
-        messageBox.classList.remove(
-            "changing"
-        );
+            messageBox.classList.remove(
+                "changing"
+            );
 
-    }, 180);
+        },
+        180
+    );
 }
 
 
@@ -283,30 +409,43 @@ function changeChibiAfterRoll() {
     document
         .querySelectorAll(".chibi")
         .forEach(function (chibi) {
+
             chibi.classList.remove(
                 "chibi-bounce"
             );
+
         });
+
 
     const old =
         document.querySelector(
             ".chibi-dice"
         );
 
+
     if (old) {
+
         old.classList.add(
             "chibi-bounce"
         );
+
     }
+
+
+    /* الرمية الثانية */
 
     if (rolls === 2) {
 
         createChibi(
-            "electro.png",
+            "electro",
             "chibi-electro",
             "رايدن شوغن مع البرق"
         );
+
     }
+
+
+    /* الرمية الرابعة */
 
     if (rolls === 4) {
 
@@ -315,16 +454,22 @@ function changeChibiAfterRoll() {
                 ".chibi-electro"
             );
 
+
         if (oldElectro) {
+
             oldElectro.remove();
+
         }
 
+
         createChibi(
-            "plush.png",
+            "plush",
             "chibi-plush",
             "رايدن شوغن مع دمية"
         );
+
     }
+
 }
 
 
@@ -332,73 +477,115 @@ function changeChibiAfterRoll() {
    ROLL
 ========================= */
 
-dice.addEventListener("click", function () {
+dice.addEventListener(
+    "click",
+    function () {
 
-    if (
-        dice.classList.contains("rolling")
-    ) {
-        return;
-    }
+        if (
+            dice.classList.contains(
+                "rolling"
+            )
+        ) {
 
-    initAudio();
+            return;
 
-    if (
-        audioContext &&
-        audioContext.state === "suspended"
-    ) {
-        audioContext.resume();
-    }
+        }
 
-    rolls++;
 
-    dice.classList.add("rolling");
+        initAudio();
 
-    diceSound();
 
-    let animationTime = 0;
+        if (
+            audioContext &&
+            audioContext.state === "suspended"
+        ) {
 
-    const animation =
-        setInterval(function () {
+            audioContext.resume();
 
-            showDice(
-                randomDice()
+        }
+
+
+        rolls++;
+
+
+        dice.classList.add(
+            "rolling"
+        );
+
+
+        diceSound();
+
+
+        let animationTime = 0;
+
+
+        const animation =
+            setInterval(
+                function () {
+
+                    showDice(
+                        randomDice()
+                    );
+
+
+                    animationTime++;
+
+
+                    if (
+                        animationTime >= 7
+                    ) {
+
+                        clearInterval(
+                            animation
+                        );
+
+
+                        const result =
+                            randomDice();
+
+
+                        showDice(
+                            result
+                        );
+
+
+                        dice.classList.remove(
+                            "rolling"
+                        );
+
+
+                        rollCount.textContent =
+                            "الرميات: " +
+                            rolls;
+
+
+                        showRollMessage(
+                            result
+                        );
+
+
+                        changeChibiAfterRoll();
+
+
+                        if (
+                            rolls >= 6
+                        ) {
+
+                            setTimeout(
+                                showEnding,
+                                1600
+                            );
+
+                        }
+
+                    }
+
+                },
+                90
             );
 
-            animationTime++;
-
-            if (animationTime >= 7) {
-
-                clearInterval(animation);
-
-                const result =
-                    randomDice();
-
-                showDice(result);
-
-                dice.classList.remove(
-                    "rolling"
-                );
-
-                rollCount.textContent =
-                    "الرميات: " + rolls;
-
-                showRollMessage(
-                    result
-                );
-
-                changeChibiAfterRoll();
-
-                if (rolls >= 6) {
-
-                    setTimeout(
-                        showEnding,
-                        1600
-                    );
-                }
-            }
-
-        }, 90);
-});
+    }
+);
 
 
 /* =========================
@@ -415,32 +602,43 @@ document
 
                 initAudio();
 
+
                 playTone(
                     720,
                     0.2,
                     0.07
                 );
 
+
                 const text =
                     piece.dataset.message;
+
 
                 messageTitle.textContent =
                     "قطعة من اللودو";
 
+
                 message.textContent =
                     text;
+
 
                 piece.style.transform =
                     "scale(1.2)";
 
-                setTimeout(function () {
 
-                    piece.style.transform =
-                        "";
+                setTimeout(
+                    function () {
 
-                }, 220);
+                        piece.style.transform =
+                            "";
+
+                    },
+                    220
+                );
+
             }
         );
+
     });
 
 
@@ -452,25 +650,39 @@ function showEnding() {
 
     removeChibis();
 
+
     finalSound();
 
-    game.classList.add("hidden");
-    ending.classList.remove("hidden");
+
+    game.classList.add(
+        "hidden"
+    );
+
+
+    ending.classList.remove(
+        "hidden"
+    );
+
 
     createChibi(
-        "birthday.png",
+        "birthday",
         "chibi-birthday",
         "رايدن شوغن تحتفل بعيد الميلاد"
     );
 
-    setTimeout(function () {
 
-        ending.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
+    setTimeout(
+        function () {
 
-    }, 100);
+            ending.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        },
+        100
+    );
+
 }
 
 
@@ -484,33 +696,47 @@ replayBtn.addEventListener(
 
         rolls = 0;
 
+
         showDice(1);
+
 
         rollCount.textContent =
             "الرميات: 0";
 
+
         messageTitle.textContent =
             "النرد ينتظر ضغطتك";
+
 
         message.textContent =
             "اضغطي عليه وشوفي المفاجأة";
 
-        ending.classList.add("hidden");
 
-        game.classList.remove("hidden");
+        ending.classList.add(
+            "hidden"
+        );
+
+
+        game.classList.remove(
+            "hidden"
+        );
+
 
         removeChibis();
 
+
         createChibi(
-            "dice.png",
+            "dice",
             "chibi-dice",
             "رايدن شوغن مع النرد"
         );
+
 
         game.scrollIntoView({
             behavior: "smooth",
             block: "center"
         });
+
     }
 );
 
