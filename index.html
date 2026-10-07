@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>إلى دعدوعة</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main>
+
+        <!-- المقدمة -->
+        <section class="intro" id="intro">
+
+            <div class="card">
+
+                <div class="mini-title">
+                    🎲 لودو خاصة
+                </div>
+
+                <h1>
+                    إلى دعدوعة
+                </h1>
+
+                <p>
+                    عندي لك لعبة صغيرة
+                </p>
+
+                <p>
+                    لكن هذه المرة النرد يخفي شيئا وراء كل ضغطة
+                </p>
+
+                <button id="startBtn">
+                    ابدئي
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- اللعبة -->
+        <section class="game hidden" id="game">
+
+            <div class="game-header">
+
+                <h2>
+                    لودو دعدوعة
+                </h2>
+
+                <p>
+                    اضغطي على النرد وشوفي ماذا سيظهر لك
+                </p>
+
+            </div>
+
+
+            <!-- رقعة لودو -->
+            <div class="ludo-board" id="ludoBoard">
+
+                <div class="home red-home">
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                </div>
+
+                <div class="home green-home">
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                </div>
+
+                <div class="home yellow-home">
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                </div>
+
+                <div class="home blue-home">
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                    <div class="home-piece"></div>
+                </div>
+
+                <div class="board-center">
+                    <span>★</span>
+                </div>
+
+            </div>
+
+
+            <!-- النرد -->
+            <div class="dice-area">
+
+                <div class="dice-label">
+                    اضغطي على النرد
+                </div>
+
+                <button id="dice" class="dice">
+
+                    <span class="dot dot-1"></span>
+                    <span class="dot dot-2"></span>
+                    <span class="dot dot-3"></span>
+                    <span class="dot dot-4"></span>
+                    <span class="dot dot-5"></span>
+                    <span class="dot dot-6"></span>
+                    <span class="dot dot-7"></span>
+                    <span class="dot dot-8"></span>
+                    <span class="dot dot-9"></span>
+
+                </button>
+
+                <div id="rollCount">
+                    الرميات: 0
+                </div>
+
+            </div>
+
+
+            <!-- الرسالة -->
+            <div class="message-box" id="messageBox">
+
+                <div id="messageTitle">
+                    النرد ينتظر ضغطتك
+                </div>
+
+                <p id="message">
+                    اضغطي عليه وشوفي المفاجأة
+                </p>
+
+            </div>
+
+
+            <!-- القطع -->
+            <div class="pieces-area">
+
+                <button class="piece red-piece" data-message="حتى قطع اللودو عندها مكانها الخاص">
+                    ●
+                </button>
+
+                <button class="piece green-piece" data-message="كل خطوة صغيرة ممكن توصلنا لشيء جميل">
+                    ●
+                </button>
+
+                <button class="piece yellow-piece" data-message="اليوم موش يوم عادي أبدا">
+                    ●
+                </button>
+
+                <button class="piece blue-piece" data-message="باقي خطوة ونوصلوا للنهاية">
+                    ●
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- النهاية -->
+        <section class="ending hidden" id="ending">
+
+            <div class="card ending-card">
+
+                <div class="final-star">
+                    ★
+                </div>
+
+                <div class="small-title">
+                    وصلت للنهاية
+                </div>
+
+                <h1>
+                    عيد ميلاد سعيد يا دعدوعة
+                </h1>
+
+                <p>
+                    كانت مجرد رميات نرد
+                </p>
+
+                <p>
+                    لكن كل ضغطة كانت جزءا من هذه الهدية
+                </p>
+
+                <p class="final-message">
+                    أتمنى تكون سنتك الجديدة مليانة أيام حلوة
+                    وضحك ونجاحات وحاجات تفرحك
+                </p>
+
+                <button id="replayBtn">
+                    نعيدوا اللعبة
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
